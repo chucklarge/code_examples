@@ -33,7 +33,7 @@ def breadthFirstLevel(tree)
     end
 
     if currentCount == 0
-      puts
+      print "\n"
       currentCount = c
       c = 0
     end

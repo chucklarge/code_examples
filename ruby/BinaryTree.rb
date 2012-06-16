@@ -7,7 +7,6 @@ class BinaryTree
     @left  = nil
     @right = nil
   end
-
 end
 
 def breadthFirstLevel(tree)

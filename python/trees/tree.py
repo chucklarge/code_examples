@@ -1,5 +1,13 @@
 from BinaryTree import *
 
+#          F
+#        /   \
+#      B       G
+#    /   \       \
+#  A      D       I
+#       /   \    /
+#      C     E  H
+
 a = BinaryTree('A')
 b = BinaryTree('B')
 c = BinaryTree('C')
@@ -19,6 +27,11 @@ d.right = e
 g.right = i
 i.left  = h
 
-print a.value
-print a.left.value
-print a.right.value
+depthFirstPreOrder(f)
+print
+
+depthFirstInOrder(f)
+print
+
+depthFirstPostOrder(f)
+print

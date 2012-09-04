@@ -5,6 +5,46 @@ require_once './BinaryTree.php';
  * Test suite for the BinaryTree class.
  */
 class BinaryTreeTest extends PHPUnit_Framework_TestCase {
+
+/*
+
+           AA
+
+
+           AA
+         /
+       BB
+
+           AA
+              \
+               CC
+
+           AA
+         /    \
+       BB      CC
+
+           AA
+         /    \
+       BB      CC
+     /       /    \
+   II      DD      JJ
+
+            F
+          /   \
+        B       G
+      /   \       \
+    A      D       I
+         /   \    /
+        C     E  H
+
+*/
+    protected $tree1 = '(AA () ())',
+              $tree2 = '(AA (BB () ()) ())',
+              $tree3 = '(AA () (CC () ()))',
+              $tree4 = '(AA (BB () ()) (CC () ()))',
+              $tree5 = '(AA (BB () (II () ())) (CC (DD () ()) (JJ () ())))',
+              $tree6 = '(F (B (A () ()) (D (C () ()) (E () ()))) (G () (I (H () ()) ())))';
+
     protected function setUp() {
     }
 
@@ -46,82 +86,48 @@ class BinaryTreeTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $actual);
     }
 
-/*
-
-           AA
-
-
-           AA
-         /
-       BB
-
-           AA
-              \
-               CC
-
-           AA
-         /    \
-       BB      CC
-
-           AA
-         /    \
-       BB      CC
-     /       /    \
-   II      DD      JJ
-
-            F
-          /   \
-        B       G
-      /   \       \
-    A      D       I
-         /   \    /
-        C     E  H
-
-        http://bit.ly/OTZvS8
-        All data providers are executed before the first call to the setUp function.
-        Because of that you can't access any variables you create there from within a data provider.
-*/
+    // Data Providers
     public function componentProvider() {
         return array(
-            array('(AA () ())',                                                        'AA', '()', '()'),
-            array('(AA (BB () ()) ())',                                                'AA', '(BB () ())', '()'),
-            array('(AA () (CC () ()))',                                                'AA', '()', '(CC () ())'),
-            array('(AA (BB () ()) (CC () ()))',                                        'AA', '(BB () ())', '(CC () ())'),
-            array('(AA (BB () (II () ())) (CC (DD () ()) (JJ () ())))',                'AA', '(BB () (II () ()))', '(CC (DD () ()) (JJ () ()))'),
-            array('(F (B (A () ()) (D (C () ()) (E () ()))) (G () (I (H () ()) ())))', 'F', '(B (A () ()) (D (C () ()) (E () ())))', '(G () (I (H () ()) ()))'),
+            array($this->tree1, 'AA', '()',                                    '()'),
+            array($this->tree2, 'AA', '(BB () ())',                            '()'),
+            array($this->tree3, 'AA', '()',                                    '(CC () ())'),
+            array($this->tree4, 'AA', '(BB () ())',                            '(CC () ())'),
+            array($this->tree5, 'AA', '(BB () (II () ()))',                    '(CC (DD () ()) (JJ () ()))'),
+            array($this->tree6, 'F',  '(B (A () ()) (D (C () ()) (E () ())))', '(G () (I (H () ()) ()))'),
         );
     }
 
     public function preOrderProvider() {
         return array(
-            array('(AA () ())',                                                        'AA'),
-            array('(AA (BB () ()) ())',                                                'AA BB'),
-            array('(AA () (CC () ()))',                                                'AA CC'),
-            array('(AA (BB () ()) (CC () ()))',                                        'AA BB CC'),
-            array('(AA (BB () (II () ())) (CC (DD () ()) (JJ () ())))',                'AA BB II CC DD JJ'),
-            array('(F (B (A () ()) (D (C () ()) (E () ()))) (G () (I (H () ()) ())))', 'F B A D C E G I H'),
+            array($this->tree1, 'AA'),
+            array($this->tree2, 'AA BB'),
+            array($this->tree3, 'AA CC'),
+            array($this->tree4, 'AA BB CC'),
+            array($this->tree5, 'AA BB II CC DD JJ'),
+            array($this->tree6, 'F B A D C E G I H'),
         );
     }
 
     public function inOrderProvider() {
         return array(
-            array('(AA () ())',                                                        'AA'),
-            array('(AA (BB () ()) ())',                                                'BB AA'),
-            array('(AA () (CC () ()))',                                                'AA CC'),
-            array('(AA (BB () ()) (CC () ()))',                                        'BB AA CC'),
-            array('(AA (BB () (II () ())) (CC (DD () ()) (JJ () ())))',                'BB II AA DD CC JJ'),
-            array('(F (B (A () ()) (D (C () ()) (E () ()))) (G () (I (H () ()) ())))', 'A B C D E F G H I'),
+            array($this->tree1, 'AA'),
+            array($this->tree2, 'BB AA'),
+            array($this->tree3, 'AA CC'),
+            array($this->tree4, 'BB AA CC'),
+            array($this->tree5, 'BB II AA DD CC JJ'),
+            array($this->tree6, 'A B C D E F G H I'),
         );
     }
 
     public function postOrderProvider() {
         return array(
-            array('(AA () ())',                                                        'AA'),
-            array('(AA (BB () ()) ())',                                                'BB AA'),
-            array('(AA () (CC () ()))',                                                'CC AA'),
-            array('(AA (BB () ()) (CC () ()))',                                        'BB CC AA'),
-            array('(AA (BB () (II () ())) (CC (DD () ()) (JJ () ())))',                'II BB DD JJ CC AA'),
-            array('(F (B (A () ()) (D (C () ()) (E () ()))) (G () (I (H () ()) ())))', 'A C E D B H I G F'),
+            array($this->tree1, 'AA'),
+            array($this->tree2, 'BB AA'),
+            array($this->tree3, 'CC AA'),
+            array($this->tree4, 'BB CC AA'),
+            array($this->tree5, 'II BB DD JJ CC AA'),
+            array($this->tree6, 'A C E D B H I G F'),
         );
     }
 }

@@ -26,6 +26,12 @@ function bytesToHumanSize($bytes, $precision = 2) {
     }
 }
 
+
+/*
+    output from  `ls -al` and `ls -alh`
+    trying to match the `ls -alh` to the output of above function
+ */
+
 $datas = [
     0 => '0B',
     34 => '34',
